@@ -1,0 +1,51 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+    
+
+    <h1>Student List</h1>
+
+    {% if student_list %}
+
+    <div class="row mx-auto">
+
+      
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Roll no</th>
+            <th scope="col">Name</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Contact no</th>
+            <th scope="col">Total books due</th>
+            <th scope="col">Email</th>
+            <th scope="col">User type</th>
+          </tr>
+        </thead>
+        {% for student in student_list %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ student.roll_no }}</th>
+            <td>{{ student.name }}</td>
+            <td>{{ student.branch }}</td>
+            <td>{{ student.contact_no }}</td>
+            <td>{{ student.total_books_due }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.user_type }}</td>
+          </tr>
+        
+        </tbody>
+        {% endfor %}
+      </table>
+      
+
+      
+    </div>
+
+
+    {% else %}
+      <p class=" bg bg-white">There are no books.</p>
+    {% endif %}       
+{% endblock %}
+

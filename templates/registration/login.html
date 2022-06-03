@@ -1,0 +1,30 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row text-center">  
+    <form method="post" class="">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">Username:</label>
+            <input type="text" class="form-control" name='username' autofocus autocapitalize="none" autocomplete="username" placeholder="Enter Username" maxlength="150" required id="id_username">
+          
+        </div>
+        <div>
+          <label for="exampleInputPassword1">Password:</label>
+          <input type="password" name='password' autocomplete="current-password" required id="id_password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div id="formFooter">
+            <p><a href="">Lost password?</a></p>
+        </div>
+      </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    </div>
+  </div>
+</div> 
+{% endblock %}
