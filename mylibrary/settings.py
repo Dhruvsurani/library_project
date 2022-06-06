@@ -115,7 +115,7 @@ USE_L10N = True
 
 USE_I18N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -130,4 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-DATE_INPUT_FORMATS = ['%d/%m/%Y'] 
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"

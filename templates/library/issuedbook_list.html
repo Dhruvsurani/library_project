@@ -1,0 +1,46 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+
+
+    <h1>Issued books List</h1>
+
+    {% if issuebook_list %}
+
+    <div class="row mx-auto">
+
+
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">student</th>
+            <th scope="col">book</th>
+            <th scope="col">issue_date</th>
+            <th scope="col">return_date</th>
+
+          </tr>
+        </thead>
+        {% for issuebook in issuebook_list %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ issuebook.student }}</th>
+            <td>{{ issuebook.book }}</td>
+            <td>{{ issuebook.issue_date }}</td>
+            <td>{{ issuebook.return_date }}</td>
+
+          </tr>
+
+        </tbody>
+        {% endfor %}
+      </table>
+
+
+
+    </div>
+
+
+    {% else %}
+      <p class=" bg bg-white">There are no issued books.</p>
+    {% endif %}
+{% endblock %}

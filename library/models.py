@@ -21,23 +21,19 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text="description of the book")
     isbn = models.CharField('ISBN', max_length=13, help_text='13 Character ISBN number')
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
+    publish_date = models.DateField(null=True)
     total_copies = models.IntegerField()
     available_copies = models.IntegerField()
     pic=models.ImageField(blank=True, null=True, upload_to='book_image')
 
-    
-
     def __str__(self):
         return self.title
 
-
-
-
 CHOICES = (
-        ('Author', 'Author'),
-        ('Buyer', 'Buyer'),
-        ('Admin', 'Admin'),
-    )
+    ('Author', 'Author'),
+    ('Buyer', 'Buyer'),
+    ('Admin', 'Admin'),)
+
 class Student(models.Model):
     roll_no = models.CharField(max_length=10,unique=True)
     name = models.CharField(max_length=10)
@@ -56,5 +52,6 @@ class Borrower(models.Model):
     book = models.ForeignKey('Book', on_delete=models.CASCADE)
     issue_date = models.DateTimeField(null=True,blank=True)
     return_date = models.DateTimeField(null=True,blank=True)
+
     def __str__(self):
         return self.student.name+" borrowed "+self.book.title
