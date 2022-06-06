@@ -12,7 +12,7 @@
     <h4>Copies</h4>
     {% if user.is_superuser %}
                 <a class="btn btn-danger" href="{% url 'book_delete' pk=book_list.id %}">DELETE</a>
-                <a class="btn btn-success" href="">Update</a>
+                <a class="btn btn-success" href="{% url 'book_update' pk=book_list.id  %}">Update</a>
     {% endif %}
 
   </div>

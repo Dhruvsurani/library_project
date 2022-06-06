@@ -34,6 +34,11 @@ class BookDeleteView(DeleteView):
     template_name = 'library/book_confirm_delete.html'
     success_url = reverse_lazy('books')
 
+class BookUpdateView(UpdateView):
+    model = Book
+    template_name = 'library/form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('book-detail')
 
 class StudentCreateView(LoginRequiredMixin,CreateView):
     login_url = '/accounts/login/'
