@@ -29,16 +29,18 @@ class BookCreateView(LoginRequiredMixin,CreateView):
     fields = '__all__'
     success_url = reverse_lazy('book_create')
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(LoginRequiredMixin,DeleteView):
+    login_url = '/accounts/login/'
     model = Book
     template_name = 'library/book_confirm_delete.html'
     success_url = reverse_lazy('books')
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(LoginRequiredMixin,UpdateView):
+    login_url = '/accounts/login/'
     model = Book
     template_name = 'library/form.html'
     fields = '__all__'
-    success_url = reverse_lazy('book-detail')
+    success_url = reverse_lazy('books')
 
 class StudentCreateView(LoginRequiredMixin,CreateView):
     login_url = '/accounts/login/'
