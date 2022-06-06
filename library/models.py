@@ -25,10 +25,15 @@ class Book(models.Model):
     total_copies = models.IntegerField()
     available_copies = models.IntegerField()
     pic=models.ImageField(blank=True, null=True, upload_to='book_image')
-
+    def pic_url(self):
+        if self.pic:
+            return self.pic.url
+        return ''
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('book-detail', args=[str(self.id)])
 CHOICES = (
     ('Author', 'Author'),
     ('Buyer', 'Buyer'),
@@ -37,15 +42,18 @@ CHOICES = (
 class Student(models.Model):
     roll_no = models.CharField(max_length=10,unique=True)
     name = models.CharField(max_length=10)
-    branch = models.CharField(max_length=3)
+    branch = models.CharField(max_length=20)
     contact_no = models.CharField(max_length=10)
     total_books_due=models.IntegerField(default=0)
     email=models.EmailField(unique=True)
     user_type=models.CharField(max_length=20, choices=CHOICES, default='Buyer')
    
     def __str__(self):
-        return str(self.roll_no)
-
+        return str(self.name)
+def create_user(sender, *args, **kwargs):
+    if kwargs['created']:
+        User.objects.create(username=kwargs['instance'],password="dummypass")
+post_save.connect(create_user, sender=Student)
 
 class Borrower(models.Model):
     student = models.ForeignKey('Student', on_delete=models.CASCADE)

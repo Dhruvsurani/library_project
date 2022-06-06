@@ -1,10 +1,10 @@
 
 from django.urls import reverse_lazy
 
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView,DetailView
 from .models import Book,Student,Borrower
 # Create your views here.
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -17,12 +17,22 @@ class BookListView(ListView):
     model = Book
     context_object_name = 'book_list'
 
+class BookDetailView(DetailView):
+    model = Book
+    context_object_name = 'book_list'
+
 
 class BookCreateView(LoginRequiredMixin,CreateView):
     login_url = '/accounts/login/'
     template_name = 'library/form.html'
     model = Book
     fields = '__all__'
+    success_url = reverse_lazy('book_create')
+
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = 'library/book_confirm_delete.html'
+    success_url = reverse_lazy('books')
 
 
 class StudentCreateView(LoginRequiredMixin,CreateView):
