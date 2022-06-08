@@ -14,7 +14,6 @@ class Genre(models.Model):
         return self.name
 
 
-    
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
@@ -24,11 +23,13 @@ class Book(models.Model):
     publish_date = models.DateField(null=True)
     total_copies = models.IntegerField()
     available_copies = models.IntegerField()
-    pic=models.ImageField(blank=True, null=True, upload_to='book_image')
+    pic=models.ImageField(upload_to='media/book_image/')
+
     def pic_url(self):
         if self.pic:
             return self.pic.url
         return ''
+
     def __str__(self):
         return self.title
 
@@ -38,6 +39,7 @@ CHOICES = (
     ('Author', 'Author'),
     ('Buyer', 'Buyer'),
     ('Admin', 'Admin'),)
+
 
 class Student(models.Model):
     roll_no = models.CharField(max_length=10,unique=True)
@@ -49,11 +51,16 @@ class Student(models.Model):
     user_type=models.CharField(max_length=20, choices=CHOICES, default='Buyer')
    
     def __str__(self):
-        return str(self.name)
+        return '%s %s ' % (str(self.name),self.pk)
+
+
 def create_user(sender, *args, **kwargs):
     if kwargs['created']:
-        User.objects.create(username=kwargs['instance'],password="dummypass")
+        User.objects.create(username=kwargs['instance'],password="Test@1234")
+
+
 post_save.connect(create_user, sender=Student)
+
 
 class Borrower(models.Model):
     student = models.ForeignKey('Student', on_delete=models.CASCADE)

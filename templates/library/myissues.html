@@ -1,0 +1,40 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+
+
+
+
+    <div class="row mx-auto">
+
+
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Borrowe_id</th>
+            <th scope="col">student</th>
+            <th scope="col">book</th>
+            <th scope="col">issue_date</th>
+            <th scope="col">return_date</th>
+
+          </tr>
+        </thead>
+        {% for issue in issuedbooks %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ issue.id }}</th>
+            <td>{{ issue.student_id }}</td>
+            <td>{{ issue.book_id }}</td>
+            <td>{{ issue.issue_date }}</td>
+            <td>{{ issue.return_date }}</td>
+          </tr>
+
+        </tbody>
+        {% endfor %}
+      </table>
+
+
+
+    </div>
+
+{% endblock %}

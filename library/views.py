@@ -1,4 +1,5 @@
-
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import TemplateView,ListView,DetailView
@@ -70,5 +71,16 @@ class IssuedBookListView(LoginRequiredMixin,ListView):
     template_name = 'library/issuedbook_list.html'
     model = Borrower
     context_object_name = 'issuebook_list'
+
+
+def myissues(request):
+    # student = Student.objects.filter(name=request.user.username).first()
+    # print(student)
+    issues = Borrower.objects.filter(student__name=request.user.username).all().values()
+    print(issues)
+
+    context = {'issuedbooks':issues}
+
+    return render(request, 'library/myissues.html', context)
 
 
